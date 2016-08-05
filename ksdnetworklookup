@@ -1,0 +1,52 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides: ksdnetworklookup
+# Required-Start: $local_fs $network $syslog
+# Required-Stop: $local_fs $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: KSD Network Lookup
+# Description: This file starts and stops the KSD Network Lookup server.
+# 
+### END INIT INFO
+
+# export JAVA_HOME=/home/joe/programs/jdk1.8.0_05
+
+
+. /lib/lsb/init-functions
+
+NAME=networklookup
+APPDIR=/home/serveradm/KSDNetworkLookup
+CMD=$APPDIR/start.sh
+PIDFILE=$APPDIR/twistd.pid
+
+
+do_start() {
+    start-stop-daemon --start --background --pidfile $PIDFILE --startas $CMD
+}
+
+do_stop() {
+    start-stop-daemon --stop --pidfile $PIDFILE
+}
+
+case "$1" in
+start)
+    log_action_msg "Starting $NAME"
+    do_start
+        ;;
+stop)
+    log_action_msg "Stopping $NAME"
+    do_stop
+    ;;
+restart)
+    log_action_msg "Restarting $NAME"
+    do_stop
+    sleep 2
+    do_start
+    ;;
+*)
+    log_action_msg "Usage: /etc/init.d/ksdnetworklookup {start|stop|restart}"
+    exit 2
+    ;;
+esac
+exit 0

@@ -1,0 +1,19 @@
+body {
+	/*font-size: 18px;*/
+	background: #d2d2d2;
+	/*color: #000;*/
+	/*font-family: Helvetica, Arial, sans-serif;*/
+}
+
+.hidden {
+	display: none;
+}
+
+.tablePlaceholder {
+	padding: .5em;
+}
+
+.panel-heading {
+	font-weight: bold;
+	font-size: 1.7em;
+}

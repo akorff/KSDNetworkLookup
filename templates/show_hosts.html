@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-12 main">
+
+                <h1 class="page-header">Zeroconf Discovery</h1>
+
+                <div class="btn-group" role="group" aria-label="...">
+
+                    <!--  
+                        Service List Drop Down Button
+                     -->
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="zeroconiferServiceListDropdownButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Retrieving service list...
+                        </button>
+
+                        <ul id="zeroconiferServiceListDropdown" class="nav nav-sidebar dropdown-menu" aria-labelledby="zeroconiferServiceListDropdownButton">
+                        </ul>
+                    </div>
+
+                    <!--  
+                        Duration Choice List Drop Down Button
+                     -->
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="zeroconiferDurationButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Retrieving duration list...
+                            <span class="caret"></span>
+                        </button>
+
+                        <ul id="zeroconiferDuration" class="nav nav-sidebar dropdown-menu" aria-labelledby="zeroconiferDurationButton">
+                        </ul>
+                    </div>
+
+                    <!--  
+                        Search Button
+                     -->
+                    <button type="button" class="btn btn-primary btn-default" id="zeroconiferSearchButton">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <!--  
+                Error panel; displayed by default, hidden when all resources are loaded.
+             -->
+            <div id="error-panel" class="col-sm-12 col-md-12">
+                <div class="panel panel-danger">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    Error
+                </div>
+                    <p class="tablePlaceholder"><span class="glyphicon glyphicon-exclamation-sign aria-hidden="true"></span> Service Type List, Duration List and / or Network List not loaded.</p>
+                </div>
+            </div>
+
+
+            <!--  
+                The panel(s) where the results will be displayed.
+             -->
+            {% for network in networks %}
+            <div class="col-xs-12 col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">{{ network.name }}</div>
+
+                  <div id="{{ network.id }}" class="hostsTableDiv">
+                      <p class="tablePlaceholder">Search to retrieve a list of hosts.</p>
+
+                  </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-xs-12 col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">{{ network.name }}</div>
+
+                  <div id="{{ network.id }}" class="hostsTableDiv">
+                      <p class="tablePlaceholder">No networks configured.</p>
+
+                  </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/zeroconifer.js') }}"></script>
+
+    <script type="text/javascript" charset="utf-8">
+
+        $( document ).ready(function() {
+            console.log('Initializing zeroconifer.');
+
+            Zeroconifer.initialize(
+                "{{ url_for('service_type_list') }}", 
+                "{{ url_for('network_list') }}",
+                "{{ url_for('duration_choice_list') }}"
+            );
+
+        });
+
+    </script>
+
+{% endblock %}
