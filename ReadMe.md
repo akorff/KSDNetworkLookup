@@ -42,10 +42,11 @@ Run in the background with twisted: `twistd web --port 9001 --wsgi ksdNetworkLoo
 	chmod +x start.sh
 ```
 
-Update the `APPDIR` variables in the `start.sh` and `ksdnetworklookup` scripts to point to the `KSDNetworkLookup` directory, and create a `settings.cfg` file to define values for `DEBUG, SECRET_KEY, LIST_OF_NETWORKS, DURATION_CHOICES, SERVICE_TYPES`. See the defaults in `ksdNetworkLookup.py` for examples.
+Update the `APPDIR` variables in the `start.sh` and `ksdnetworklookup` scripts to point to the `KSDNetworkLookup` directory, and create a `settings.cfg` file to define values for `DEBUG, SECRET_KEY, LIST_OF_NETWORKS, DURATION_CHOICES, SERVICE_TYPES`. See the defaults in `ksdNetworkLookup.py` for examples, and the [Generating the SECRET_KEY](#generating-the-secret_key) section.
 
 Copy `ksdnetworklookup` to `/etc/init.d/ksdnetworklookup`
 
+### Controlling the Service with init.d
 Start the service: 
 ```sh
 	sudo /etc/init.d/ksdnetworklookup start
